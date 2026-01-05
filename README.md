@@ -1,67 +1,25 @@
-# 📦 Bộ sưu tập lệnh lập trình của tôi
+# 📦 BỘ SƯU TẬP LỆNH LẬP TRÌNH CỦA TÔI
 
----
+## GIỚI THIỆU
 
-## 🇻🇳 Giới thiệu
+CHÀO MỪNG BẠN ĐẾN VỚI **BỘ SƯU TẬP LỆNH LẬP TRÌNH CỦA TÔI**.
+REPOSITORY NÀY DÙNG ĐỂ LƯU TRỮ, TỔNG HỢP VÀ CHIA SẺ CÁC ĐOẠN LỆNH CỦA TÔI.
+MỤC TIÊU CHÍNH LÀ **TÁI SỬ DỤNG NHANH**, **GHI NHỚ GIẢI PHÁP** VÀ **TỐI ƯU THỜI GIAN PHÁT TRIỂN**.
 
-Chào mừng bạn đến với **Bộ sưu tập lệnh lập trình của tôi** 🎯  
-Repository này dùng để lưu trữ, tổng hợp và chia sẻ các đoạn lệnh, snippet và ví dụ code mà tôi đã sử dụng trong quá trình học tập và làm việc thực tế.
+## 🎯 MỤC ĐÍCH
 
-Mục tiêu chính là **tái sử dụng nhanh**, **ghi nhớ giải pháp**, và **tối ưu thời gian phát triển**.
+- CHIA SẺ KIẾN THỨC LẬP TRÌNH.
+- GHI CHÚ CÁC GIẢI PHÁP THỰC TẾ.
+- LƯU TRỮ CÁC ĐOẠN CODE HAY DÙNG.
+- LƯU TRỮ MỘT SỐ DỰ ÁN NHỎ ĐỂ THAM KHẢO SAU NÀY.
 
----
+## 🔖 NỘI DUNG
 
-## 🎯 Mục đích | Purpose
+- **EXCEL, VBA**
+- **JAVASCRIPT**
+- **BATCH SCRIPT**
+- **MORE ...**
 
-🇻🇳
-
-- Lưu trữ các đoạn code hay dùng
-- Ghi chú các giải pháp thực tế
-- Chia sẻ kiến thức lập trình
-- Tránh viết lại những đoạn code lặp lại
-
-🇬🇧
-
-- Store frequently used code snippets
-- Document real-world solutions
-- Share programming knowledge
-- Avoid rewriting repetitive code
-
----
-
-## 🧩 Nội dung | Contents
-
-- 🧮 **Excel / VBA**
-- 🌐 **Web Development**
-- 🐘 **Backend**
-- 🐳 **DevOps**
-- 🗄️ **Database**
-- ⚙️ **Scripts & Tools**
-
----
-
-## 📁 Cấu trúc thư mục | Folder Structure (Example)
-
-```
-.
-├── excel-vba/
-├── javascript/
-├── php/
-├── docker/
-├── sql/
-└── README.md
-```
-
----
-
-## 🚀 Cách sử dụng | How to Use
-
-```bash
-git clone https://github.com/your-username/your-repo.git
-```
-
----
-
-## 📜 Giấy phép | License
+## 📜 GIẤY PHÉP
 
 MIT License

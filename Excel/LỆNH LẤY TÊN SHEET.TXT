@@ -1,0 +1,4 @@
+
+LỆNH EXCEL -> LẤY TÊN SHEET HIỆN TẠI -> GHI Ý -> CHỈ LẤY ĐƯỢC KHI TÊN SHEET KHÔNG TRÙNG TÊN FILE
+
+    = MID(CELL("filename",INDIRECT("A1",TRUE)),FIND("]",CELL("filename",INDIRECT("A1",TRUE)))+1,255)

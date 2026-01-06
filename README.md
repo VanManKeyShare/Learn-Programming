@@ -15,7 +15,7 @@ MỤC TIÊU CHÍNH LÀ **TÁI SỬ DỤNG NHANH**, **GHI NHỚ GIẢI PHÁP** V�
 
 ## 🔖 NỘI DUNG
 
-- **CSHARP**
+- **C#**
 - **ASP.NET**
 - **JAVASCRIPT**
 - **BATCH SCRIPT**

@@ -1,0 +1,303 @@
+
+GOOGLE SCRIPT - ADD EDITOR, CREATE PROTECTION, SHARE
+
+- ADD EDITORS TO FILE
+- REMOVE ALL PROTECTION FOR SHEET
+- MAKE PROTECTION FOR SHEET EXCEPT RANGE
+- MAKE PROTECTION FOR RANGE ON SHEET
+- CREATE COLOR FOR RANGE ALLOW EDIT
+
+var SPREADSHEET_ID = '0000000000'; // Click Share >> Copy Link >> Example = https://docs.google.com/spreadsheets/d/<SPREADSHEET_ID>/edit
+
+function LIST_EDITOR()
+{
+	var LIST = {
+		"User01@Gmail.Com": "User 01",
+		"User02@Gmail.Com": "User 02"
+	};
+	return LIST;
+
+	/*
+		var TMP = LIST_EDITOR();
+		alert(TMP["User01@Gmail.Com"]);
+		for(var KEY in TMP) {
+			var VALUE = TMP[KEY];
+			alert(KEY); alert(VALUE);
+		}
+	*/
+}
+
+function LIST_SHEET()
+{
+	var LIST = [];
+	LIST.push({
+		"SHEET_NAME": "SHEET1",
+		"LIST_RANGE": [
+			{
+				"RANGE": "A2:A5",
+				"FONT_COLOR": "Yellow",
+				"BACKGROUND_COLOR": "Red",
+				"LIST_EMAIL_ALLOW_EDIT_RANGE": ["User01@Gmail.Com"]
+			},
+			{
+				"RANGE": "A7:A11",
+				"FONT_COLOR": "Yellow",
+				"BACKGROUND_COLOR": "Red",
+				"LIST_EMAIL_ALLOW_EDIT_RANGE": ["User01@Gmail.Com"]
+			},
+			{
+				"RANGE": "B3:B6",
+				"FONT_COLOR": "Blue",
+				"BACKGROUND_COLOR": "Yellow",
+				"LIST_EMAIL_ALLOW_EDIT_RANGE": ["User02@Gmail.Com"]
+			},
+			{
+				"RANGE": "B8:B12",
+				"FONT_COLOR": "Blue",
+				"BACKGROUND_COLOR": "Yellow",
+				"LIST_EMAIL_ALLOW_EDIT_RANGE": ["User02@Gmail.Com"]
+			},
+			{
+				"RANGE": "C1:C5",
+				"FONT_COLOR": "Red",
+				"BACKGROUND_COLOR": "Green",
+				"LIST_EMAIL_ALLOW_EDIT_RANGE": ["User01@Gmail.Com", "User02@Gmail.Com"]
+			}
+		]
+	});
+	LIST.push({
+		"SHEET_NAME": "SHEET2",
+		"LIST_RANGE": [
+			{
+				"RANGE": "D2:D5",
+				"FONT_COLOR": "Yellow",
+				"BACKGROUND_COLOR": "Red",
+				"LIST_EMAIL_ALLOW_EDIT_RANGE": ["User01@Gmail.Com"]
+			},
+			{
+				"RANGE": "D7:D11",
+				"FONT_COLOR": "Yellow",
+				"BACKGROUND_COLOR": "Red",
+				"LIST_EMAIL_ALLOW_EDIT_RANGE": ["User01@Gmail.Com"]
+			},
+			{
+				"RANGE": "E3:E6",
+				"FONT_COLOR": "Blue",
+				"BACKGROUND_COLOR": "Yellow",
+				"LIST_EMAIL_ALLOW_EDIT_RANGE": ["User02@Gmail.Com"]
+			},
+			{
+				"RANGE": "E8:E12",
+				"FONT_COLOR": "Blue",
+				"BACKGROUND_COLOR": "Yellow",
+				"LIST_EMAIL_ALLOW_EDIT_RANGE": ["User02@Gmail.Com"]
+			},
+			{
+				"RANGE": "F1:F5",
+				"FONT_COLOR": "Red",
+				"BACKGROUND_COLOR": "Green",
+				"LIST_EMAIL_ALLOW_EDIT_RANGE": ["User01@Gmail.Com", "User02@Gmail.Com"]
+			}
+		]
+	});
+	return LIST;
+}
+
+function VMK_CREATE_PROTECTION()
+{
+	// ADD EDITORS TO FILE 
+
+	var ARRAY_EDITOR_EMAIL = [];
+
+	var TMP = LIST_EDITOR();
+	for(var KEY in TMP) {
+		if(KEY.trim() != ""){
+			if(ARRAY_EDITOR_EMAIL.indexOf(KEY.trim().toLowerCase()) === -1){ARRAY_EDITOR_EMAIL.push(KEY.trim().toLowerCase());}
+		}
+	}
+
+	ADD_EDITORS_TO_FILE(SPREADSHEET_ID, ARRAY_EDITOR_EMAIL);
+
+	// REMOVE ALL PROTECTION FOR SHEET
+
+	var LIST_SHEET_A = LIST_SHEET();
+	for(var I = 0; I < LIST_SHEET_A.length; I++)
+	{
+		var SHEET_NAME = LIST_SHEET_A[I].SHEET_NAME;
+		REMOVE_ALL_PROTECTION_FOR_SHEET(SPREADSHEET_ID, SHEET_NAME);
+	}
+
+	// MAKE PROTECTION FOR SHEET EXCEPT RANGE
+
+	var DESCRIPTION_B = "Locked";
+
+	var LIST_SHEET_B = LIST_SHEET();
+	for(var I = 0; I < LIST_SHEET_B.length; I++)
+	{
+		var SHEET_NAME = LIST_SHEET_B[I].SHEET_NAME;
+		var LIST_RANGE = LIST_SHEET_B[I].LIST_RANGE;
+
+		var LIST_EXCEPT_RANGE = [];
+
+		for(var Y = 0; Y < LIST_RANGE.length; Y++)
+		{
+			var RANGE = LIST_RANGE[Y].RANGE.trim();
+			if(RANGE != ""){
+				if(LIST_EXCEPT_RANGE.indexOf(RANGE.toLowerCase()) === -1){LIST_EXCEPT_RANGE.push(RANGE.toLowerCase());}
+			}
+		}
+
+		MAKE_PROTECTION_FOR_SHEET_EXCEPT_RANGE(SPREADSHEET_ID, SHEET_NAME, LIST_EXCEPT_RANGE, DESCRIPTION_B);
+	}
+
+	// MAKE PROTECTION FOR RANGE ON SHEET
+
+	var LIST_EDITOR_TMP = LIST_EDITOR();
+
+	var LIST_SHEET_C = LIST_SHEET();
+	for(var I = 0; I < LIST_SHEET_C.length; I++)
+	{
+		var SHEET_NAME = LIST_SHEET_C[I].SHEET_NAME;
+		var LIST_RANGE = LIST_SHEET_C[I].LIST_RANGE;
+
+		for(var Y = 0; Y < LIST_RANGE.length; Y++)
+		{
+			var RANGE_ALLOW_EDIT = LIST_RANGE[Y].RANGE.trim();
+			var LIST_EMAIL_ALLOW_EDIT_RANGE = LIST_RANGE[Y].LIST_EMAIL_ALLOW_EDIT_RANGE;
+
+			var LIST_EMAIL = [];
+			var LIST_NAME_FROM_EMAIL = [];
+
+			var DESCRIPTION_C = "Allow Change For ";
+
+			if(RANGE_ALLOW_EDIT != "" && LIST_EMAIL_ALLOW_EDIT_RANGE.length > 0)
+			{
+				for(var Z = 0; Z < LIST_EMAIL_ALLOW_EDIT_RANGE.length; Z++){
+					var EMAIL = LIST_EMAIL_ALLOW_EDIT_RANGE[Z].trim();
+					if(EMAIL != ""){
+						LIST_EMAIL.push(EMAIL);
+						LIST_NAME_FROM_EMAIL.push(LIST_EDITOR_TMP[EMAIL].trim());
+					}
+				}
+				if(LIST_NAME_FROM_EMAIL.length > 0){DESCRIPTION_C += LIST_NAME_FROM_EMAIL.join(", ");}
+				if(LIST_EMAIL.length > 0){
+					MAKE_PROTECTION_FOR_RANGE_ON_SHEET(SPREADSHEET_ID, SHEET_NAME, RANGE_ALLOW_EDIT, DESCRIPTION_C, LIST_EMAIL);
+				}
+			}
+		}
+	}
+
+	// CREATE COLOR FOR RANGE ALLOW EDIT
+
+	var SS = SpreadsheetApp.openById(SPREADSHEET_ID);
+
+	var LIST_SHEET_D = LIST_SHEET();
+	for(var I = 0; I < LIST_SHEET_D.length; I++)
+	{
+		var SHEET_NAME = LIST_SHEET_D[I].SHEET_NAME;
+		var LIST_RANGE = LIST_SHEET_D[I].LIST_RANGE;
+
+		var SHEET = SS.getSheetByName(SHEET_NAME);
+
+		for(var Y = 0; Y < LIST_RANGE.length; Y++)
+		{
+			var RANGE = LIST_RANGE[Y].RANGE.trim();
+			var FONT_COLOR = LIST_RANGE[Y].FONT_COLOR.trim();
+			var BACKGROUND_COLOR = LIST_RANGE[Y].BACKGROUND_COLOR.trim();
+			if(RANGE != ""){
+				var RANGE_TMP;
+				if(FONT_COLOR != ""){
+					RANGE_TMP = SHEET.getRange(RANGE);
+					RANGE_TMP.setFontColor(FONT_COLOR);
+				}
+				if(BACKGROUND_COLOR != ""){
+					RANGE_TMP = SHEET.getRange(RANGE);
+					RANGE_TMP.setBackground(BACKGROUND_COLOR);
+				}
+			}
+		}
+	}
+
+	Logger.log('Success');
+	return 'Success';
+}
+
+function ADD_EDITORS_TO_FILE(SPREADSHEET_ID, ARRAY_USER_EMAIL)
+{
+	var SS = SpreadsheetApp.openById(SPREADSHEET_ID);
+	SS.addEditors(ARRAY_USER_EMAIL);
+}
+
+function REMOVE_ALL_PROTECTION_FOR_SHEET(SPREADSHEET_ID, SHEET_NAME)
+{
+	var SS, SHEET, PROTECTIONS, CURRENT_PROTECTION;
+
+	SS = SpreadsheetApp.openById(SPREADSHEET_ID);
+	SHEET = SS.getSheetByName(SHEET_NAME);
+
+	PROTECTIONS = SHEET.getProtections(SpreadsheetApp.ProtectionType.RANGE);
+	for(var i = 0; i < PROTECTIONS.length; i++){
+		CURRENT_PROTECTION = PROTECTIONS[i];
+		if(CURRENT_PROTECTION.canEdit()){CURRENT_PROTECTION.remove();}
+	}
+
+	var PROTECTION = SHEET.getProtections(SpreadsheetApp.ProtectionType.SHEET)[0];
+	if (PROTECTION && PROTECTION.canEdit()){PROTECTION.remove();}
+}
+
+function MAKE_PROTECTION_FOR_SHEET_EXCEPT_RANGE(SPREADSHEET_ID, SHEET_NAME, LIST_EXCEPT_RANGE, DESCRIPTION)
+{
+	var SS, SHEET, PROTECTION;
+	var LIST_RANGE_UNPROTECT = [];
+	SS = SpreadsheetApp.openById(SPREADSHEET_ID);
+	SHEET = SS.getSheetByName(SHEET_NAME);
+	if(DESCRIPTION.toString().trim() == ""){DESCRIPTION = "Locked";}
+	PROTECTION = SHEET.protect().setDescription(DESCRIPTION);
+	if(PROTECTION.canDomainEdit()){PROTECTION.setDomainEdit(false);}
+	PROTECTION.removeEditors(PROTECTION.getEditors());
+	for(var i = 0; i < LIST_EXCEPT_RANGE.length; i++){
+		LIST_RANGE_UNPROTECT.push(SHEET.getRange(LIST_EXCEPT_RANGE[i]));
+	}
+	PROTECTION.setUnprotectedRanges(LIST_RANGE_UNPROTECT);
+
+	/*
+		function EXAMPLE_FOR_USE()
+		{
+			var SPREADSHEET_ID, SHEET_NAME, DESCRIPTION;
+			var LIST_EXCEPT_RANGE = [];
+			SPREADSHEET_ID = "0000000000"; // Click Share >> Copy Link >> Example = https://docs.google.com/spreadsheets/d/<SPREADSHEET_ID>/edit
+			SHEET_NAME = "SHEET1";
+			DESCRIPTION = "Locked";
+			LIST_EXCEPT_RANGE.push("A2:A8");
+			LIST_EXCEPT_RANGE.push("B5:B20");
+			MAKE_PROTECTION_FOR_SHEET_EXCEPT_RANGE(SPREADSHEET_ID, SHEET_NAME, LIST_EXCEPT_RANGE, DESCRIPTION);
+		}
+	*/
+}
+
+function MAKE_PROTECTION_FOR_RANGE_ON_SHEET(SPREADSHEET_ID, SHEET_NAME, RANGE_ALLOW_EDIT, DESCRIPTION, LIST_USER_EMAIL)
+{
+	var SS, SHEET, PROTECTION;
+	SS = SpreadsheetApp.openById(SPREADSHEET_ID);
+	SHEET = SS.getSheetByName(SHEET_NAME);
+	var RANGE = SHEET.getRange(RANGE_ALLOW_EDIT);
+	if(DESCRIPTION.toString().trim() == ""){DESCRIPTION = "Allow Change";}
+	PROTECTION = RANGE.protect().setDescription(DESCRIPTION);
+	if(PROTECTION.canDomainEdit()){PROTECTION.setDomainEdit(false);}
+	PROTECTION.removeEditors(PROTECTION.getEditors());
+	PROTECTION.addEditors(LIST_USER_EMAIL);
+
+	/*
+		function EXAMPLE_FOR_USE(){
+			var SPREADSHEET_ID, SHEET_NAME, RANGE_ALLOW_EDIT, DESCRIPTION;
+			var LIST_USER_EMAIL = [];
+			SPREADSHEET_ID = "0000000000"; // Click Share >> Copy Link >> Example = https://docs.google.com/spreadsheets/d/<SPREADSHEET_ID>/edit
+			SHEET_NAME = "SHEET1";
+			RANGE_ALLOW_EDIT = "A2:A8";
+			DESCRIPTION = "Allow Change";
+			LIST_USER_EMAIL.push("User01@Gmail.Com");
+			LIST_USER_EMAIL.push("User02@Gmail.Com");
+			MAKE_PROTECTION_FOR_RANGE_ON_SHEET(SPREADSHEET_ID, SHEET_NAME, RANGE_ALLOW_EDIT, DESCRIPTION, LIST_USER_EMAIL);
+		}
+	*/
+}

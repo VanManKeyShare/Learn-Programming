@@ -15,7 +15,7 @@ MỤC TIÊU CHÍNH LÀ **TÁI SỬ DỤNG NHANH**, **GHI NHỚ GIẢI PHÁP** V�
 
 ## 🔖 NỘI DUNG
 
-- **EXCEL, VBA**
+- **MS WORD, MS EXCEL, VBA**
 - **JAVASCRIPT**
 - **BATCH SCRIPT**
 - **MORE ...**

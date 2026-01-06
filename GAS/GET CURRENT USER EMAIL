@@ -1,0 +1,57 @@
+
+// File = FORM_GET_CURRENT_USER_EMAIL.HTML
+
+<!DOCTYPE html>
+<html>
+  <head>
+	<base target="_top">
+	<style>
+		#msg{
+			font-family: verdana;
+			font-size: 10pt;
+		}
+	</style>
+	<script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
+  </head>
+  <body>
+	<div id="msg"></div>
+	<br/>
+	<div><input type="button" id="BTN_GET_USER_EMAIL" value="Lấy địa chỉ Email"></div>
+	<br/>
+	<div><input type="button" id="BTN_CLOSE" value="Đóng"></div>
+	<script>
+		$(document).ready(function(){
+			$("#BTN_GET_USER_EMAIL").trigger("click");
+		});
+		$("#BTN_GET_USER_EMAIL").click(function(){
+			google.script.run.withSuccessHandler(DispEmail).GET_CURRENT_USER_EMAIL();
+			function DispEmail(DATA){
+				$('#msg').text(DATA.Email);
+			}
+		});
+		$("#BTN_CLOSE").click(function(){
+			google.script.host.close();
+		});
+	</script>
+  </body>
+</html>
+
+// File = Code.gs
+
+function onOpen(){
+	var ui = SpreadsheetApp.getUi();
+	var menu = ui.createAddonMenu().addItem('Lấy Email Address','VMK_SHOW_SIDEBAR_GET_CURRENT_USER_EMAIL').addToUi();
+}
+
+function VMK_SHOW_SIDEBAR_GET_CURRENT_USER_EMAIL(){
+	var ui = SpreadsheetApp.getUi();
+	var html = HtmlService.createHtmlOutputFromFile("FORM_GET_CURRENT_USER_EMAIL")
+	.setSandboxMode(HtmlService.SandboxMode.IFRAME)
+	.setTitle("Lấy Email Address");
+	ui.showSidebar(html);
+}
+
+function GET_CURRENT_USER_EMAIL(){
+	var Email = {'Email':Session.getActiveUser().getEmail()};
+	return Email;
+}

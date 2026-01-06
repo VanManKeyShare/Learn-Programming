@@ -15,10 +15,11 @@ MỤC TIÊU CHÍNH LÀ **TÁI SỬ DỤNG NHANH**, **GHI NHỚ GIẢI PHÁP** V�
 
 ## 🔖 NỘI DUNG
 
-- **MS WORD, MS EXCEL, VBA**
+- **CSHARP**
+- **ASP.NET**
 - **JAVASCRIPT**
 - **BATCH SCRIPT**
-- **MORE ...**
+- **MS WORD, MS EXCEL, VBA**
 
 ## 📜 GIẤY PHÉP
 

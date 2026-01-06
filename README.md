@@ -15,8 +15,8 @@ MỤC TIÊU CHÍNH LÀ **TÁI SỬ DỤNG NHANH**, **GHI NHỚ GIẢI PHÁP** V�
 
 ## 🔖 NỘI DUNG
 
-- **C#**
-- **ASP.NET**
+- **PHP**
+- **C#, ASP.NET**
 - **JAVASCRIPT**
 - **BATCH SCRIPT**
 - **MS WORD, MS EXCEL, VBA**

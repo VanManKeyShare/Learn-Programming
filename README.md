@@ -17,8 +17,9 @@ MỤC TIÊU CHÍNH LÀ **TÁI SỬ DỤNG NHANH**, **GHI NHỚ GIẢI PHÁP** V�
 
 - **PHP**
 - **C#, ASP.NET**
-- **JAVASCRIPT**
+- **HTML, CSS, JS**
 - **BATCH SCRIPT**
+- **GOOGLE APPS SCRIPT**
 - **MS WORD, MS EXCEL, VBA**
 
 ## 📜 GIẤY PHÉP

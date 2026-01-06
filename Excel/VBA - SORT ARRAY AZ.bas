@@ -1,7 +1,7 @@
 
-LỆNH EXCEL VBA -> SORT ARRAY FROM A TO Z
+LỆNH EXCEL VBA -> SORT ARRAY AZ
 
-    Function SORT_ARRAY_A_TO_Z(MyArray As Variant) As Variant
+    Function SORT_ARRAY_AZ(MyArray As Variant) As Variant
         Dim I As Long
         Dim J As Long
         Dim Temp
@@ -14,5 +14,5 @@ LỆNH EXCEL VBA -> SORT ARRAY FROM A TO Z
                 End If
             Next J
         Next I
-        SORT_ARRAY_A_TO_Z = MyArray
+        SORT_ARRAY_AZ = MyArray
     End Function

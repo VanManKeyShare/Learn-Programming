@@ -1,12 +1,15 @@
 
-LỆNH EXCEL VBA -> SAVE AS FILE
+LỆNH EXCEL VBA -> SHOW SAVE AS FILE
 
-    Dim KqSaveAs As Variant
-    KqSaveAs = Application.GetSaveAsFilename( _
-        FileFilter:="Excel Files, *.xls;*.xlsx", _
-        Title:="Save As", _
-        InitialFileName:=CurDir _
-    )
-    If KqSaveAs <> False Then
-        MsgBox KqSaveAs
-    End If
+    Sub SHOW_SAVE_AS_FILE()
+        Const iniDir As String = "C:\"
+        Dim ShowSaveAsFile As Variant
+        ShowSaveAsFile = Application.GetSaveAsFilename( _
+            FileFilter:="Excel Files, *.xls;*.xlsx", _
+            Title:="Save As", _
+            InitialFileName:=iniDir _
+        )
+        If ShowSaveAsFile <> False Then
+            MsgBox ShowSaveAsFile, , "Message"
+        End If
+    End Sub

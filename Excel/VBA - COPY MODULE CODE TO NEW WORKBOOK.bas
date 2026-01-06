@@ -1,20 +1,34 @@
 
 LỆNH EXCEL VBA -> COPY MODULE CODE TO NEW WORKBOOK
 
-	Dim File_Module As String
+	Sub EXPORT_MODULE()
 
-	File_Module = IIf(Environ$("TMP") <> "", Environ$("TMP"), Environ$("TEMP"))
-	If Right(File_Module, 1) <> "\" Then File_Module = File_Module & "\"
-	File_Module = File_Module & "VMK_Module.bas"
+		Dim File_Module As String
 
-	On Error Resume Next
-	ActiveWorkbook.VBProject.VBComponents("Module_Name_For_Copy").Export File_Module
-	If InStr(1, UCase(Trim(Err.Description)), "PROJECT IS NOT TRUSTED", vbBinaryCompare) > 0 And _
-		Err.Number = 1004 _
-	Then
-		MsgBox "PLEASE ENABLE TRUST ACCESS TO THE VBA PROJECT OBJECT MODEL" & vbCrLf & vbCrLf & "IN DEVELOPER MACRO SETTINGS", , "THÔNG BÁO"
-		Exit Sub
-	End If
-	On Error GoTo 0
+		File_Module = IIf(Environ$("TMP") <> "", Environ$("TMP"), Environ$("TEMP"))
+		If Right(File_Module, 1) <> "\" Then File_Module = File_Module & "\"
+		File_Module = File_Module & "VMK_Module.bas"
 
-	ActiveWorkbook.VBProject.VBComponents.Import File_Module
+		On Error Resume Next
+		ActiveWorkbook.VBProject.VBComponents("Module_Name_For_Copy").Export File_Module
+		If InStr(1, UCase(Trim(Err.Description)), "PROJECT IS NOT TRUSTED", vbBinaryCompare) > 0 And _
+			Err.Number = 1004 _
+		Then
+			MsgBox "PLEASE ENABLE TRUST ACCESS TO THE VBA PROJECT OBJECT MODEL" & vbCrLf & vbCrLf & "IN DEVELOPER MACRO SETTINGS", , "Message"
+			Exit Sub
+		End If
+		On Error GoTo 0
+
+	End Sub
+
+	Sub IMPORT_MODULE()
+
+		Dim File_Module As String
+
+		File_Module = IIf(Environ$("TMP") <> "", Environ$("TMP"), Environ$("TEMP"))
+		If Right(File_Module, 1) <> "\" Then File_Module = File_Module & "\"
+		File_Module = File_Module & "VMK_Module.bas"
+
+		ActiveWorkbook.VBProject.VBComponents.Import File_Module
+
+	End Sub

@@ -1,57 +1,68 @@
 
 LỆNH EXCEL VBA -> TẠO MENU RIGHT CLICK CHO CELL
 
-	+ TẠO MODULE
+	+ Module
 
 		Option Explicit
 
-		Const COT_MAHS = 9
-		Const ROW_BEGIN = 3
-		Const ROW_END = 10000
-		Const NAME_SHEET_HSHS = "HSHS"
+		Const SHEET_DATA = "DATA"
+		Const COLUMN_INSERT_MENU = 9
+		Const ROW_BEGIN_INSERT_MENU = 3
+		Const ROW_END_INSERT_MENU = 10000
 
-		Private Sub Show_Form_Chuyen_Di()
-			If UCase(Selection.Worksheet.Name) = UCase(NAME_SHEET_HSHS) Then
-				If Selection.Count = 1 Then
-					If Selection.Column = COT_MAHS Then
-						If Selection.Row >= ROW_BEGIN And Selection.Row <= ROW_END Then
-							Dim Cell As Range
-							Dim Ma_Hs_From_Cell As String
-							Set Cell = Selection
-							Ma_Hs_From_Cell = Trim(Cell.Value)
-							If Ma_Hs_From_Cell <> "" Then
-								MsgBox Ma_Hs_From_Cell
-							End If
-						End If
-					End If
-				End If
+		Private Sub PROCESS_MENU_RIGHT_CLICK()
+
+			If Selection.Count < 1 Then Exit Sub
+
+			If UCase(Selection.Worksheet.Name) <> UCase(SHEET_DATA) Then
+				MsgBox "ONLY WORK ON SHEET " & SHEET_DATA, , "Message"
+				Exit Sub
 			End If
+
+			If Selection.Column <> COLUMN_INSERT_MENU Then
+				MsgBox "ONLY WORK ON COLUMN " & COLUMN_INSERT_MENU, , "Message"
+				Exit Sub
+			End If
+
+			If Selection.Row >= ROW_BEGIN_INSERT_MENU And Selection.Row <= ROW_END_INSERT_MENU Then
+				Dim Cell As Range
+				Dim Value_From_Cell As String
+				Set Cell = Selection
+				Value_From_Cell = Trim(Cell.Value)
+				If Value_From_Cell <> "" Then
+					MsgBox Value_From_Cell, , "Message"
+				Else
+					MsgBox "Null", , "Message"
+				End If
+			Else
+				MsgBox "ONLY WORK ON ROW " & ROW_BEGIN_INSERT_MENU & " TO " & ROW_END_INSERT_MENU, , "Message"
+				Exit Sub
+			End If
+
 		End Sub
 
-		Private Sub Build_Menu_Chuyen_Di_Click()
-			Dim I As Integer
-			Dim BTN As CommandBarControl
-			Dim CbConTrol As CommandBarControl
-			Set CbConTrol = Application.CommandBars("Cell").Controls.Add(Type:=msoControlButton, Before:=1)
-			CbConTrol.Tag = "M111411"
-			CbConTrol.Caption = "Chuy" & ChrW(7875) & "n " & ChrW(273) & "i - Ch" & ChrW(7885) & "n M" & ChrW(227) & " h" & ChrW(7885) & "c sinh"
-			CbConTrol.OnAction = "Show_Form_Chuyen_Di"
+		Private Sub CREATE_MENU_RIGHT_CLICK()
+			Dim CBCONTROL As CommandBarControl
+			Set CBCONTROL = Application.CommandBars("Cell").Controls.Add(Type:=msoControlButton, Before:=1)
+			CBCONTROL.Tag = "VMK"
+			CBCONTROL.Caption = "TEST MENU RIGHT CLICK"
+			CBCONTROL.OnAction = "PROCESS_MENU_RIGHT_CLICK"
 		End Sub
 
-		Private Sub Xoa_Menu_Chuyen_Di_Click()
-			Dim CbConTrol As CommandBarControl
-			For Each CbConTrol In Application.CommandBars("Cell").Controls
-				If CbConTrol.Tag = "M111411" Then CbConTrol.Delete
+		Private Sub REMOVE_MENU_RIGHT_CLICK()
+			Dim CBCONTROL As CommandBarControl
+			For Each CBCONTROL In Application.CommandBars("Cell").Controls
+				If CBCONTROL.Tag = "VMK" Then CBCONTROL.Delete
 			Next
 		End Sub
 
-	+ THÊM LỆNH VÀO ThisWorkbook
+	+ ThisWorkbook
 
 		Private Sub Workbook_BeforeClose(Cancel As Boolean)
-			Run ("Xoa_Menu_Chuyen_Di_Click")
+			Run ("REMOVE_MENU_RIGHT_CLICK")
 		End Sub
 
 		Private Sub Workbook_SheetBeforeRightClick(ByVal Sh As Object, ByVal Target As Range, Cancel As Boolean)
-			Run ("Xoa_Menu_Chuyen_Di_Click")
-			Run ("Build_Menu_Chuyen_Di_Click")
+			Run ("REMOVE_MENU_RIGHT_CLICK")
+			Run ("CREATE_MENU_RIGHT_CLICK")
 		End Sub

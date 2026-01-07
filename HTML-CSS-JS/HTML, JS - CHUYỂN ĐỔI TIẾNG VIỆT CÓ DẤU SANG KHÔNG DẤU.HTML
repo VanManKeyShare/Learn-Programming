@@ -1,0 +1,69 @@
+<!-- -->
+<!-- HTML, JS -> CHUYỂN ĐỔI TIẾNG VIỆT CÓ DẤU SANG KHÔNG DẤU -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CHUYỂN VĂN BẢN TIẾNG VIỆT CÓ DẤU SANG KHÔNG DẤU</title>
+  </head>
+  <body>
+    <div style="font-weight: bold; color: red">
+      CHUYỂN VĂN BẢN TIẾNG VIỆT CÓ DẤU SANG KHÔNG DẤU
+    </div>
+    <br />
+    <div style="font-weight: bold; color: blue">VĂN BẢN TIẾNG VIỆT CÓ DẤU</div>
+    <div>
+      <textarea
+        name="noi_dung_co_dau"
+        id="noi_dung_co_dau"
+        cols="100"
+        rows="20"
+      ></textarea>
+    </div>
+    <div style="font-weight: bold; color: blue">VĂN BẢN KHÔNG DẤU</div>
+    <div>
+      <textarea
+        name="noi_dung_khong_dau"
+        id="noi_dung_khong_dau"
+        cols="100"
+        rows="20"
+      ></textarea>
+    </div>
+    <div>
+      <button
+        id="chuyen_doi"
+        style="padding: 5px; font-weight: bold; color: red"
+        onclick="ThucHien()"
+      >
+        THỰC HIỆN CHUYỂN ĐỔI
+      </button>
+    </div>
+    <script type="text/javascript">
+      function Chuyen_Doi(DuLieu) {
+        DuLieu = DuLieu.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
+        DuLieu = DuLieu.replace(/À|Á|Ạ|Ả|Ã|Â|Ầ|Ấ|Ậ|Ẩ|Ẫ|Ă|Ằ|Ắ|Ặ|Ẳ|Ẵ/g, "A");
+        DuLieu = DuLieu.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
+        DuLieu = DuLieu.replace(/È|É|Ẹ|Ẻ|Ẽ|Ê|Ề|Ế|Ệ|Ể|Ễ/g, "E");
+        DuLieu = DuLieu.replace(/ì|í|ị|ỉ|ĩ/g, "i");
+        DuLieu = DuLieu.replace(/Ì|Í|Ị|Ỉ|Ĩ/g, "I");
+        DuLieu = DuLieu.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o");
+        DuLieu = DuLieu.replace(/Ò|Ó|Ọ|Ỏ|Õ|Ô|Ồ|Ố|Ộ|Ổ|Ỗ|Ơ|Ờ|Ớ|Ợ|Ở|Ỡ/g, "O");
+        DuLieu = DuLieu.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
+        DuLieu = DuLieu.replace(/Ù|Ú|Ụ|Ủ|Ũ|Ư|Ừ|Ứ|Ự|Ử|Ữ/g, "U");
+        DuLieu = DuLieu.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
+        DuLieu = DuLieu.replace(/Ỳ|Ý|Ỵ|Ỷ|Ỹ/g, "Y");
+        DuLieu = DuLieu.replace(/đ/g, "d");
+        DuLieu = DuLieu.replace(/Đ/g, "D");
+        return DuLieu;
+      }
+      function ThucHien() {
+        var DuLieu = document.getElementById("noi_dung_co_dau").value;
+        document.getElementById("noi_dung_khong_dau").value =
+          Chuyen_Doi(DuLieu);
+      }
+    </script>
+  </body>
+</html>

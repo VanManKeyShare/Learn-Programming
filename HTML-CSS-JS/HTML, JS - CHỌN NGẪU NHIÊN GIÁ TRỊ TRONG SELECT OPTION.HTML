@@ -1,0 +1,16 @@
+<!-- -->
+<!-- HTML, JS -> CHỌN NGẪU NHIÊN GIÁ TRỊ TRONG SELECT OPTION -->
+
+<select class=".sel" id="sel">
+  <option>a</option>
+  <option>b</option>
+  <option>c</option>
+  <option>d</option>
+</select>
+
+<script>
+  $sel = $("#sel");
+  $op = $sel.find("option");
+  $op[Math.floor(Math.random() * $op.length)].selected = true;
+  $sel.change();
+</script>

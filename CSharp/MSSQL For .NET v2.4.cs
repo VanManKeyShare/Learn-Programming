@@ -1,5 +1,5 @@
 
-// CSHARP - C# -> CLASS VMK MSSQL -> Version 2.4
+// CSharp - C# -> MSSQL For .NET -> Version 2.4 -> © 2023 by VMK
 
 #region --- EXAMPLE - SELECT ---
 /*** EXAMPLE - SELECT

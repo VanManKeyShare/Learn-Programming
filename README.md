@@ -13,15 +13,6 @@ MỤC TIÊU CHÍNH LÀ **TÁI SỬ DỤNG NHANH**, **GHI NHỚ GIẢI PHÁP** V�
 - LƯU TRỮ CÁC ĐOẠN CODE HAY DÙNG.
 - LƯU TRỮ MỘT SỐ DỰ ÁN NHỎ ĐỂ THAM KHẢO SAU NÀY.
 
-## 🔖 NỘI DUNG
-
-- **PHP**
-- **C#, ASP.NET**
-- **HTML, CSS, JS**
-- **BATCH SCRIPT**
-- **GOOGLE APPS SCRIPT**
-- **MS WORD, MS EXCEL, VBA**
-
 ## 📜 GIẤY PHÉP
 
 MIT License

@@ -1,0 +1,151 @@
+<!---->
+<!-- HTML + JS -> TẠO HÀNG LOẠT REQUEST SỬ DỤNG IMG HOẶC IFRAME -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>TẠO HÀNG LOẠT REQUEST SỬ DỤNG IMG HOẶC IFRAME</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="TẠO HÀNG LOẠT REQUEST SỬ DỤNG IMG HOẶC IFRAME"
+    />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="https://www.microsoft.com/favicon.ico"
+    />
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+  </head>
+  <body>
+    <script>
+      const RndSTR = (
+        len,
+        chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+      ) =>
+        [...Array(len)]
+          .map(() => chars.charAt(Math.floor(Math.random() * chars.length)))
+          .join("");
+    </script>
+    <p>
+      <label
+        >SỐ LƯỢNG REQUEST&nbsp;&nbsp;<input type="text" id="SoLuongRQ"
+      /></label>
+    </p>
+    <p>
+      <label
+        >DELAY SAU MỖI REQUEST&nbsp;&nbsp;<input
+          type="text"
+          id="DelayRQ"
+        />&nbsp;Millisecond</label
+      >
+    </p>
+    <p>
+      <span>CHỌN KIỂU REQUEST</span>
+      <input
+        type="radio"
+        id="TYPE_IMG"
+        name="TYPE_REQUEST"
+        value="IMG"
+        checked="checked"
+      />
+      <label for="TYPE_IMG">IMG</label>
+      <input type="radio" id="TYPE_IFRAME" name="TYPE_REQUEST" value="IFRAME" />
+      <label for="TYPE_IFRAME">IFRAME</label>
+    </p>
+    <button
+      type="button"
+      id="VMK_BTN_CREATE_REQUEST"
+      style="font-weight: bold; color: red; padding: 5px"
+    >
+      TẠO REQUEST
+    </button>
+    <button
+      type="button"
+      id="VMK_BTN_STOP"
+      style="font-weight: bold; color: red; padding: 5px"
+    >
+      STOP
+    </button>
+    <p id="STATUS" style="color: red"></p>
+    <script>
+      var STOP = 0;
+      function Sleep(ms) {
+        return new Promise((resolve) => setTimeout(resolve, ms));
+      }
+      function CREATE_URL() {
+        var Url =
+          "https://example.com/api?api={API}&url=https://hello.com/" +
+          RndSTR(10000);
+        return Url;
+      }
+      async function CREATE_IMG_REQUEST(SoLuongRQ, DelayRQ) {
+        for (var i = 1; i <= SoLuongRQ; i++) {
+          if (STOP == 1) {
+            break;
+          }
+          await Sleep(DelayRQ);
+          let Url = CREATE_URL();
+          $("body").append(
+            '<div style="padding-bottom:5px"><input type="text" value="' +
+              i +
+              " - " +
+              Url +
+              '" style="width:95%"/><img id="IMG' +
+              i +
+              '" onerror="$(this).parent().remove()" src="' +
+              Url +
+              '" style="width:1px;height:1px"/></div>'
+          );
+        }
+        $("#STATUS").text("Done");
+      }
+      async function CREATE_IFRAME_REQUEST(SoLuongRQ, DelayRQ) {
+        for (var i = 1; i <= SoLuongRQ; i++) {
+          if (STOP == 1) {
+            break;
+          }
+          await Sleep(DelayRQ);
+          let Url = CREATE_URL();
+          $("body").append(
+            '<div style="padding-bottom:5px"><input type="text" value="' +
+              i +
+              " - " +
+              Url +
+              '" style="width:95%"/><iframe id="IFRAME' +
+              i +
+              '" onload="$(this).parent().remove()" src="' +
+              Url +
+              '" style="border:none;width:1px;height:1px"></iframe></div>'
+          );
+        }
+        $("#STATUS").text("Done");
+      }
+      $("#VMK_BTN_CREATE_REQUEST").click(function () {
+        var SoLuongRQ = $("#SoLuongRQ").val();
+        var DelayRQ = $("#DelayRQ").val();
+        if (SoLuongRQ <= 0) {
+          $("#SoLuongRQ").focus();
+        }
+        if (SoLuongRQ > 0) {
+          var KieuIMG = $("#TYPE_IMG").is(":checked");
+          var KieuIFRAME = $("#TYPE_IFRAME").is(":checked");
+          if (KieuIMG == true) {
+            STOP = 0;
+            $("#STATUS").text("Đang Chạy");
+            CREATE_IMG_REQUEST(SoLuongRQ, DelayRQ);
+          }
+          if (KieuIFRAME == true) {
+            STOP = 0;
+            $("#STATUS").text("Đang Chạy");
+            CREATE_IFRAME_REQUEST(SoLuongRQ, DelayRQ);
+          }
+        }
+      });
+      $("#VMK_BTN_STOP").click(function () {
+        STOP = 1;
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,40 @@
+<!---->
+<!-- HTML + JS -> DETECT INACTIVITY IN BROWSER TAB -->
+
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>JAVASCRIPT – DETECT INACTIVITY IN BROWSER TAB</title>
+    <meta name="viewport" content="width=device-width" />
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+  </head>
+  <body>
+    <p>
+      YOU CAN DETECT WHEN A USER STOPS INTERACTING WITH THE PAGE USING PURE
+      JAVASCRIPT.
+      <br />
+      EXAMPLE BELOW IS A SCRUPT THAT WILL RELOAD THE PAGE WHEN USER BECOMES
+      INACTIVE FOR 5 SECONDS.
+      <br />
+      IT WILL STILL RUN EVEN THOUGH YOU ARE IN ANOTHER TAB.
+    </p>
+    <script>
+      onInactive(3, function () {
+        console.log("INACTIVE");
+      });
+      function onInactive(seconds, cb) {
+        var ms = seconds * 1000;
+        var w = setTimeout(cb, ms);
+        $(window).bind(
+          "mousemove click mouseup mousedown keydown keypress keyup submit change mouseenter scroll resize dblclick",
+          function () {
+            clearTimeout(w);
+            w = setTimeout(cb, ms);
+          }
+        );
+      }
+    </script>
+  </body>
+</html>

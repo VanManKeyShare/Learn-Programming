@@ -1,313 +1,451 @@
+<!---->
+<!-- HTML + CSS + JS -> ETH PRIVATE KEY SCANNER -->
+
 <!DOCTYPE html>
 <html lang="en-US">
-	<head>
-		<meta charset="UTF-8">
-		<title>ETH PRIVATE KEY SCANNER - MÒ KIM ĐÁY BIỂN</title>
-		<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/web3@1.6.1/dist/web3.min.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js"></script>
-		<style>
-			body{font-family:Tahoma;font-size:12px;}
-			input[type=button]{
-				color: red;
-				padding: 10px;
-				cursor: pointer;
-				font-weight: bold;
-				margin-bottom:5px;
-			}
-			table{width:100%;max-width:100%;border:1px solid #ddd;border-collapse:collapse;border-spacing:0}
-			th{text-align:left;padding:5px;vertical-align:middle;border:1px solid #cdcdcd;background:#007bff;color:#ffff}
-			td{padding:5px;vertical-align:middle;border:1px solid #cdcdcd;overflow:hidden;font-size:12px;font-family:Tahoma}
-			.TABLE_MENU{border:none;}
-			.TABLE_MENU td{
-				vertical-align:top;
-				border:none;
-				line-height:1.6;
-				font-weight:bold;
-			}
-		</style>
-	</head>
-	<body>
-		<table class="TABLE_MENU">
-			<tr>
-				<td nowrap style="width:26%">
-					<span style="font-weight:bold;font-size:16px;">ETH PRIVATE KEY SCANNER - MÒ KIM ĐÁY BIỂN</span><br/>
-					1. TẠO NGẪU NHIÊN PRIVATE KEY<br/>
-					2. TẠO ĐỊA CHỈ VÍ ETH TỪ PRIVATE KEY<br/>
-					3. KIỂM TRA SỐ DƯ CỦA VÍ
-					<br/>
-					<br/>
-					<label style="color:blue;cursor:pointer">
-						<input type="radio" id="FUNC_RANDOM_PRIVATE_KEY_USE_RANDOMHEX" name="FUNC_RANDOM_PRIVATE_KEY" value="FUNC_RANDOMHEX" checked>
-						TẠO PRIVATE KEY SỬ DỤNG HÀM RANDOMHEX() CỦA THƯ VIỆN WEB3.JS
-					</label>
-					<br/>
-					<label style="color:blue;cursor:pointer">
-						<input type="radio" id="FUNC_RANDOM_PRIVATE_KEY_USE_CUSTOM" name="FUNC_RANDOM_PRIVATE_KEY" value="FUNC_CUSTOM">
-						TẠO PRIVATE KEY SỬ DỤNG HÀM TỰ CHẾ
-					</label>
-				</td>
-				<td nowrap style="width:18%">
-					<input type="button" id="CREATE_LIST_WALLET" value="TẠO DANH SÁCH 1000 VÍ"/>
-					<input type="button" id="MANUAL_CHECK_BALANCE" value="KIỂM TRA SỐ DƯ"/><br/>
-					<input type="button" id="COPY_RESULT_TO_CLIPBOARD" value="SAO CHÉP BẢNG KẾT QUẢ"/>
-					<input type="button" class="RESET" value="RESET"/>
-					<br/>
-					<input type="button" id="EXPORT_LIST_A" value="EXPORT LIST A"/>
-					<input type="button" id="EXPORT_LIST_B" value="EXPORT LIST B"/>
-				</td>
-				<td nowrap style="width:auto;">
-					<span style="line-height:2">
-						<label style="color:blue;cursor:pointer"><input type="checkbox" id="CHK_AUTO_EXPORT_LIST_A"/>TỰ ĐỘNG XUẤT DANH SÁCH VÍ CÓ SỐ DƯ KHÁC KHÔNG</label>
-						<br/>
-						<label style="color:blue;cursor:pointer"><input type="checkbox" id="CHK_AUTO_EXPORT_LIST_B"/>TỰ ĐỘNG XUẤT DANH SÁCH VÍ ĐÃ KIỂM TRA</label>
-						<br/>
-					</span>
-					<input type="button" id="AUTO_CREATE_AND_CHECK" value="TỰ ĐỘNG TẠO DANH SÁCH VÍ & KIỂM TRA SỐ DƯ"/><br/>
-					<input type="button" class="STOP" value="STOP"/>
-				</td>
-			</tr>
-		</table>
-		<br/>
-		<div id="KET_QUA">
-			<table id="BANG_A">
-				<thead>
-					<tr>
-						<th colspan="5">DANH SÁCH VÍ CÓ SỐ DƯ KHÁC KHÔNG</th>
-					</tr>
-					<tr>
-						<th nowrap style="width:1%">STT&nbsp;&nbsp;</th>
-						<th nowrap style="width:30%">PRIVATE KEY</th>
-						<th nowrap style="width:30%">ADDRESS</th>
-						<th nowrap style="width:15%">BALANCE - ETH</th>
-						<th nowrap style="width:15%">BALANCE - BSC</th>
-					</tr>
-				</thead>
-				<tbody></tbody>
-			</table>
-			<br/>
-			<table id="BANG_B">
-				<thead>
-					<tr>
-						<th colspan="5">DANH SÁCH VÍ CẦN KIỂM TRA --- <span id="SO_LUONG_CHECKED">0</span> / <span id="SO_LUONG_TONG">0</span> / <span id="SO_LUONG_ERROR">0</span> Errors</th>
-					</tr>
-					<tr>
-						<th nowrap style="width:1%">STT&nbsp;&nbsp;</th>
-						<th nowrap style="width:30%">PRIVATE KEY</th>
-						<th nowrap style="width:30%">ADDRESS</th>
-						<th nowrap style="width:15%">BALANCE - ETH</th>
-						<th nowrap style="width:15%">BALANCE - BSC</th>
-					</tr>
-				</thead>
-				<tbody></tbody>
-			</table>
-		</div>
-		<script type="text/javascript">
+  <head>
+    <meta charset="UTF-8" />
+    <title>ETH PRIVATE KEY SCANNER - MÒ KIM ĐÁY BIỂN</title>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.6.1/dist/web3.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js"></script>
+    <style>
+      body {
+        font-family: Tahoma;
+        font-size: 12px;
+      }
+      input[type="button"] {
+        color: red;
+        padding: 10px;
+        cursor: pointer;
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+      table {
+        width: 100%;
+        max-width: 100%;
+        border: 1px solid #ddd;
+        border-collapse: collapse;
+        border-spacing: 0;
+      }
+      th {
+        text-align: left;
+        padding: 5px;
+        vertical-align: middle;
+        border: 1px solid #cdcdcd;
+        background: #007bff;
+        color: #ffff;
+      }
+      td {
+        padding: 5px;
+        vertical-align: middle;
+        border: 1px solid #cdcdcd;
+        overflow: hidden;
+        font-size: 12px;
+        font-family: Tahoma;
+      }
+      .TABLE_MENU {
+        border: none;
+      }
+      .TABLE_MENU td {
+        vertical-align: top;
+        border: none;
+        line-height: 1.6;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <table class="TABLE_MENU">
+      <tr>
+        <td nowrap style="width: 26%">
+          <span style="font-weight: bold; font-size: 16px"
+            >ETH PRIVATE KEY SCANNER - MÒ KIM ĐÁY BIỂN</span
+          ><br />
+          1. TẠO NGẪU NHIÊN PRIVATE KEY<br />
+          2. TẠO ĐỊA CHỈ VÍ ETH TỪ PRIVATE KEY<br />
+          3. KIỂM TRA SỐ DƯ CỦA VÍ
+          <br />
+          <br />
+          <label style="color: blue; cursor: pointer">
+            <input
+              type="radio"
+              id="FUNC_RANDOM_PRIVATE_KEY_USE_RANDOMHEX"
+              name="FUNC_RANDOM_PRIVATE_KEY"
+              value="FUNC_RANDOMHEX"
+              checked
+            />
+            TẠO PRIVATE KEY SỬ DỤNG HÀM RANDOMHEX() CỦA THƯ VIỆN WEB3.JS
+          </label>
+          <br />
+          <label style="color: blue; cursor: pointer">
+            <input
+              type="radio"
+              id="FUNC_RANDOM_PRIVATE_KEY_USE_CUSTOM"
+              name="FUNC_RANDOM_PRIVATE_KEY"
+              value="FUNC_CUSTOM"
+            />
+            TẠO PRIVATE KEY SỬ DỤNG HÀM TỰ CHẾ
+          </label>
+        </td>
+        <td nowrap style="width: 18%">
+          <input
+            type="button"
+            id="CREATE_LIST_WALLET"
+            value="TẠO DANH SÁCH 1000 VÍ"
+          />
+          <input
+            type="button"
+            id="MANUAL_CHECK_BALANCE"
+            value="KIỂM TRA SỐ DƯ"
+          /><br />
+          <input
+            type="button"
+            id="COPY_RESULT_TO_CLIPBOARD"
+            value="SAO CHÉP BẢNG KẾT QUẢ"
+          />
+          <input type="button" class="RESET" value="RESET" />
+          <br />
+          <input type="button" id="EXPORT_LIST_A" value="EXPORT LIST A" />
+          <input type="button" id="EXPORT_LIST_B" value="EXPORT LIST B" />
+        </td>
+        <td nowrap style="width: auto">
+          <span style="line-height: 2">
+            <label style="color: blue; cursor: pointer"
+              ><input type="checkbox" id="CHK_AUTO_EXPORT_LIST_A" />TỰ ĐỘNG XUẤT
+              DANH SÁCH VÍ CÓ SỐ DƯ KHÁC KHÔNG</label
+            >
+            <br />
+            <label style="color: blue; cursor: pointer"
+              ><input type="checkbox" id="CHK_AUTO_EXPORT_LIST_B" />TỰ ĐỘNG XUẤT
+              DANH SÁCH VÍ ĐÃ KIỂM TRA</label
+            >
+            <br />
+          </span>
+          <input
+            type="button"
+            id="AUTO_CREATE_AND_CHECK"
+            value="TỰ ĐỘNG TẠO DANH SÁCH VÍ & KIỂM TRA SỐ DƯ"
+          /><br />
+          <input type="button" class="STOP" value="STOP" />
+        </td>
+      </tr>
+    </table>
+    <br />
+    <div id="KET_QUA">
+      <table id="BANG_A">
+        <thead>
+          <tr>
+            <th colspan="5">DANH SÁCH VÍ CÓ SỐ DƯ KHÁC KHÔNG</th>
+          </tr>
+          <tr>
+            <th nowrap style="width: 1%">STT&nbsp;&nbsp;</th>
+            <th nowrap style="width: 30%">PRIVATE KEY</th>
+            <th nowrap style="width: 30%">ADDRESS</th>
+            <th nowrap style="width: 15%">BALANCE - ETH</th>
+            <th nowrap style="width: 15%">BALANCE - BSC</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <br />
+      <table id="BANG_B">
+        <thead>
+          <tr>
+            <th colspan="5">
+              DANH SÁCH VÍ CẦN KIỂM TRA ---
+              <span id="SO_LUONG_CHECKED">0</span> /
+              <span id="SO_LUONG_TONG">0</span> /
+              <span id="SO_LUONG_ERROR">0</span> Errors
+            </th>
+          </tr>
+          <tr>
+            <th nowrap style="width: 1%">STT&nbsp;&nbsp;</th>
+            <th nowrap style="width: 30%">PRIVATE KEY</th>
+            <th nowrap style="width: 30%">ADDRESS</th>
+            <th nowrap style="width: 15%">BALANCE - ETH</th>
+            <th nowrap style="width: 15%">BALANCE - BSC</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <script type="text/javascript">
+      var DOMAIN_ETH_GATEWAY = "https://cloudflare-eth.com";
+      // var DOMAIN_ETH_GATEWAY = 'https://mainnet.infura.io/v3/60a40f32fb9e4ea888c7d76468ee8ac1';
+      // var DOMAIN_ETH_GATEWAY = 'https://mainnet.infura.io/v3/218f3e8922c34e9ca4b1bbd2e670701c';
 
-			var DOMAIN_ETH_GATEWAY = 'https://cloudflare-eth.com';
-			// var DOMAIN_ETH_GATEWAY = 'https://mainnet.infura.io/v3/60a40f32fb9e4ea888c7d76468ee8ac1';
-			// var DOMAIN_ETH_GATEWAY = 'https://mainnet.infura.io/v3/218f3e8922c34e9ca4b1bbd2e670701c';
+      var DOMAIN_BSC_GATEWAY = "https://bsc-dataseed1.binance.org:443";
 
-			var DOMAIN_BSC_GATEWAY = 'https://bsc-dataseed1.binance.org:443';
+      var STOP = 0;
+      var MAX_LIST_PRIVATE_KEY = 1000;
+      var LINK_IMG_LOADING = "https://i.imgur.com/eL5cfXy.gif";
 
-			var STOP = 0;
-			var MAX_LIST_PRIVATE_KEY = 1000;
-			var LINK_IMG_LOADING = 'https://i.imgur.com/eL5cfXy.gif';
+      const W3 = new Web3(DOMAIN_ETH_GATEWAY);
+      const W3_BSC = new Web3(DOMAIN_BSC_GATEWAY);
 
-			const W3 = new Web3(DOMAIN_ETH_GATEWAY);
-			const W3_BSC = new Web3(DOMAIN_BSC_GATEWAY);
+      function CREATE_WALLET_ADDRESS_FROM_PRIVATE_KEY(PRIVATE_KEY) {
+        return W3.eth.accounts.privateKeyToAccount(PRIVATE_KEY);
+      }
 
-			function CREATE_WALLET_ADDRESS_FROM_PRIVATE_KEY(PRIVATE_KEY){
-				return W3.eth.accounts.privateKeyToAccount(PRIVATE_KEY);
-			}
+      function CHECK_BALANCE(AUTO) {
+        if (STOP == 1) {
+          return;
+        }
+        let Row = $("#BANG_B > tbody > tr[processing='0']:first");
+        if (Row.length == 0) {
+          return;
+        }
 
-			function CHECK_BALANCE(AUTO){
-				if(STOP == 1){return;}
-				let Row = $("#BANG_B > tbody > tr[processing='0']:first");
-				if(Row.length == 0){return;}
+        let Address_ETH_Elemenz = Row.find("td:nth-child(3)");
+        let Address_ETH = Address_ETH_Elemenz.text().trim();
+        let Address_BSC = Address_ETH;
 
-				let Address_ETH_Elemenz = Row.find("td:nth-child(3)");
-				let Address_ETH = Address_ETH_Elemenz.text().trim();
-				let Address_BSC = Address_ETH;
+        let Balance_ETH_Elemenz = Row.find("td:nth-child(4)");
+        let Balance_BSC_Elemenz = Row.find("td:nth-child(5)");
 
-				let Balance_ETH_Elemenz = Row.find("td:nth-child(4)");
-				let Balance_BSC_Elemenz = Row.find("td:nth-child(5)");
+        if (Address_ETH_Elemenz != "") {
+          Row.attr("processing", "1");
+          Balance_ETH_Elemenz.html("<img src='" + LINK_IMG_LOADING + "'/>");
+          Balance_BSC_Elemenz.html("<img src='" + LINK_IMG_LOADING + "'/>");
 
-				if(Address_ETH_Elemenz != ""){
-					Row.attr("processing","1");
-					Balance_ETH_Elemenz.html("<img src='" + LINK_IMG_LOADING + "'/>");
-					Balance_BSC_Elemenz.html("<img src='" + LINK_IMG_LOADING + "'/>");
+          W3.eth.getBalance(Address_ETH, function (Error, Balance) {
+            Address_ETH_Elemenz.html(
+              '<a href="https://etherscan.io/address/' +
+                Address_ETH +
+                '" target="_blank">' +
+                Address_ETH +
+                '</a> - <a href="https://bscscan.com/address/' +
+                Address_BSC +
+                '" target="_blank">BSC</a>'
+            );
+            if (Error) {
+              if (
+                Error.toString().indexOf("daily request count exceeded") > -1
+              ) {
+                Balance_ETH_Elemenz.html(
+                  "DAILY REQUEST COUNT EXCEEDED, REQUEST RATE LIMITED"
+                );
+                Balance_ETH_Elemenz.append(
+                  '<input type="text" readonly value="' +
+                    Error +
+                    '" style="width:98%;text-transform:uppercase"/>'
+                );
+              } else {
+                Balance_ETH_Elemenz.html(
+                  '<input type="text" readonly value="' +
+                    Error +
+                    '" style="width:98%;text-transform:uppercase"/>'
+                );
+              }
+              $("#SO_LUONG_ERROR").text(
+                parseInt($("#SO_LUONG_ERROR").text()) + 1
+              );
+            } else {
+              Balance_ETH_Elemenz.html(Balance.trim());
+              if (Balance.trim() != "0") {
+                Row.clone().appendTo("#BANG_A > tbody");
+              }
+            }
+            $("#SO_LUONG_CHECKED").text(
+              parseInt($("#SO_LUONG_CHECKED").text()) + 1
+            );
+            Row.attr("processing", "2");
+            setTimeout(function () {
+              CHECK_BALANCE(AUTO);
+            }, 1000);
+          });
 
-					W3.eth.getBalance(Address_ETH,function(Error,Balance){
-						Address_ETH_Elemenz.html('<a href="https://etherscan.io/address/' + Address_ETH + '" target="_blank">' + Address_ETH + '</a> - <a href="https://bscscan.com/address/' + Address_BSC + '" target="_blank">BSC</a>');
-						if(Error){
-							if(Error.toString().indexOf('daily request count exceeded') > -1){
-								Balance_ETH_Elemenz.html('DAILY REQUEST COUNT EXCEEDED, REQUEST RATE LIMITED');
-								Balance_ETH_Elemenz.append('<input type="text" readonly value="' + Error + '" style="width:98%;text-transform:uppercase"/>');
-							}else{
-								Balance_ETH_Elemenz.html('<input type="text" readonly value="' + Error + '" style="width:98%;text-transform:uppercase"/>');
-							}
-							$("#SO_LUONG_ERROR").text(parseInt($("#SO_LUONG_ERROR").text())+1);
-						}else{
-							Balance_ETH_Elemenz.html(Balance.trim());
-							if(Balance.trim() != "0"){
-								Row.clone().appendTo("#BANG_A > tbody");
-							}
-						}
-						$("#SO_LUONG_CHECKED").text(parseInt($("#SO_LUONG_CHECKED").text())+1);
-						Row.attr("processing","2");
-						setTimeout(function(){
-							CHECK_BALANCE(AUTO);
-						},1000);
-					});
+          W3_BSC.eth.getBalance(Address_BSC, function (Error, Balance) {
+            if (Error) {
+              if (
+                Error.toString().indexOf("daily request count exceeded") > -1
+              ) {
+                Balance_BSC_Elemenz.html(
+                  "DAILY REQUEST COUNT EXCEEDED, REQUEST RATE LIMITED"
+                );
+                Balance_BSC_Elemenz.append(
+                  '<input type="text" readonly value="' +
+                    Error +
+                    '" style="width:98%;text-transform:uppercase"/>'
+                );
+              } else {
+                Balance_BSC_Elemenz.html(
+                  '<input type="text" readonly value="' +
+                    Error +
+                    '" style="width:98%;text-transform:uppercase"/>'
+                );
+              }
+            } else {
+              Balance_BSC_Elemenz.html(Balance.trim());
+              if (Balance.trim() != "0") {
+                Row.clone().appendTo("#BANG_A > tbody");
+              }
+            }
+          });
+        }
+      }
 
-					W3_BSC.eth.getBalance(Address_BSC,function(Error,Balance){
-						if(Error){
-							if(Error.toString().indexOf('daily request count exceeded') > -1){
-								Balance_BSC_Elemenz.html('DAILY REQUEST COUNT EXCEEDED, REQUEST RATE LIMITED');
-								Balance_BSC_Elemenz.append('<input type="text" readonly value="' + Error + '" style="width:98%;text-transform:uppercase"/>');
-							}else{
-								Balance_BSC_Elemenz.html('<input type="text" readonly value="' + Error + '" style="width:98%;text-transform:uppercase"/>');
-							}
-						}else{
-							Balance_BSC_Elemenz.html(Balance.trim());
-							if(Balance.trim() != "0"){
-								Row.clone().appendTo("#BANG_A > tbody");
-							}
-						}
-					});
-				}
-			}
+      $("#CREATE_LIST_WALLET").click(function () {
+        $(".RESET").trigger("click");
+        let DATA = "";
+        for (let I = 0; I < MAX_LIST_PRIVATE_KEY; I++) {
+          let PRIVATE_KEY;
+          if (
+            $("#FUNC_RANDOM_PRIVATE_KEY_USE_RANDOMHEX").is(":checked") == true
+          ) {
+            PRIVATE_KEY = W3.utils.randomHex(32);
+          }
+          if ($("#FUNC_RANDOM_PRIVATE_KEY_USE_CUSTOM").is(":checked") == true) {
+            PRIVATE_KEY = "0x" + GENERATE_RANDOM_HEX_STRING(64);
+          }
+          if (PRIVATE_KEY == "") {
+            return;
+          }
+          let Address =
+            CREATE_WALLET_ADDRESS_FROM_PRIVATE_KEY(PRIVATE_KEY).address;
+          DATA += '<tr processing="0">';
+          DATA += "<td>" + (I + 1) + "</td>";
+          DATA += "<td>" + PRIVATE_KEY + "</td>";
+          DATA += "<td>" + Address + "</td>";
+          DATA += '<td style="height:22px"></td>';
+          DATA += '<td style="height:22px"></td>';
+          DATA += "</tr>";
+        }
+        $("#SO_LUONG_CHECKED").text("0");
+        $("#SO_LUONG_ERROR").text("0");
+        $("#SO_LUONG_TONG").text(MAX_LIST_PRIVATE_KEY);
+        $("#BANG_B > tbody").append(DATA);
+      });
 
-			$("#CREATE_LIST_WALLET").click(function(){
-				$(".RESET").trigger("click");
-				let DATA = '';
-				for(let I = 0; I < MAX_LIST_PRIVATE_KEY; I++){
-					let PRIVATE_KEY;
-					if($("#FUNC_RANDOM_PRIVATE_KEY_USE_RANDOMHEX").is(":checked") == true){
-						PRIVATE_KEY = W3.utils.randomHex(32);
-					}
-					if($("#FUNC_RANDOM_PRIVATE_KEY_USE_CUSTOM").is(":checked") == true){
-						PRIVATE_KEY = "0x" + GENERATE_RANDOM_HEX_STRING(64);
-					}
-					if(PRIVATE_KEY == ""){return}
-					let Address = CREATE_WALLET_ADDRESS_FROM_PRIVATE_KEY(PRIVATE_KEY).address;
-					DATA += '<tr processing="0">';
-					DATA += '<td>' + (I+1) + '</td>';
-					DATA += '<td>' + PRIVATE_KEY + '</td>';
-					DATA += '<td>' + Address + '</td>';
-					DATA += '<td style="height:22px"></td>';
-					DATA += '<td style="height:22px"></td>';
-					DATA += '</tr>';
-				}
-				$("#SO_LUONG_CHECKED").text("0");
-				$("#SO_LUONG_ERROR").text("0");
-				$("#SO_LUONG_TONG").text(MAX_LIST_PRIVATE_KEY);
-				$("#BANG_B > tbody").append(DATA);
-			});
+      $("#MANUAL_CHECK_BALANCE").click(function () {
+        STOP = 0;
+        for (let i = 0; i < 20; i++) {
+          CHECK_BALANCE(0);
+        }
+      });
 
-			$("#MANUAL_CHECK_BALANCE").click(function(){
-				STOP = 0;
-				for(let i = 0; i < 20; i++){CHECK_BALANCE(0);}
-			});
+      $("#COPY_RESULT_TO_CLIPBOARD").click(function () {
+        let ELEMENT = document.querySelector("#KET_QUA");
+        let RANGE = document.createRange();
+        RANGE.selectNode(ELEMENT);
+        window.getSelection().addRange(RANGE);
+        document.execCommand("copy");
+      });
 
-			$("#COPY_RESULT_TO_CLIPBOARD").click(function(){
-				let ELEMENT = document.querySelector('#KET_QUA');
-				let RANGE = document.createRange();
-				RANGE.selectNode(ELEMENT);
-				window.getSelection().addRange(RANGE);
-				document.execCommand('copy');
-			});
+      function GENERATE_RANDOM_HEX_STRING(LENGTH) {
+        const CHARACTERS = "0123456789abcdef";
+        let RESULT = "";
+        for (let I = 0; I < LENGTH; I++) {
+          RESULT += CHARACTERS.charAt(
+            Math.floor(Math.random() * CHARACTERS.length)
+          );
+        }
+        return RESULT;
+      }
 
-			function GENERATE_RANDOM_HEX_STRING(LENGTH){
-				const CHARACTERS ='0123456789abcdef';
-				let RESULT = '';
-				for(let I = 0; I < LENGTH; I++){
-					RESULT += CHARACTERS.charAt(Math.floor(Math.random() * CHARACTERS.length));
-				}
-				return RESULT;
-			}
+      function GET_RANDOM_INT(MIN, MAX) {
+        MIN = Math.ceil(MIN);
+        MAX = Math.floor(MAX);
+        return Math.floor(Math.random() * (MAX - MIN) + MIN);
+      }
 
-			function GET_RANDOM_INT(MIN, MAX){
-				MIN = Math.ceil(MIN);
-				MAX = Math.floor(MAX);
-				return Math.floor(Math.random() * (MAX - MIN) + MIN);
-			}
+      function CLEAN_SELECTION() {
+        if (window.getSelection) {
+          if (window.getSelection().empty) {
+            // CHROME
+            window.getSelection().empty();
+          } else if (window.getSelection().removeAllRanges) {
+            // FIREFOX
+            window.getSelection().removeAllRanges();
+          }
+        } else if (document.selection) {
+          // IE
+          document.selection.empty();
+        }
+      }
 
-			function CLEAN_SELECTION(){
-				if(window.getSelection){
-					if(window.getSelection().empty){
-						// CHROME
-						window.getSelection().empty();
-					}else if(window.getSelection().removeAllRanges){
-						// FIREFOX
-						window.getSelection().removeAllRanges();
-					}
-				}else if(document.selection){
-					// IE
-					document.selection.empty();
-				}
-			}
+      function EXPORT(ELEMENT, FILE_NAME) {
+        CLEAN_SELECTION();
+        ELEMENT = document.querySelector(ELEMENT);
+        let RANGE = document.createRange();
+        RANGE.selectNode(ELEMENT);
+        window.getSelection().addRange(RANGE);
+        let DATA = window.getSelection().toString().trim();
+        let BLOB = new Blob([DATA], { type: "text/plain;charset=utf-8" });
+        saveAs(BLOB, FILE_NAME + ".TXT");
+        CLEAN_SELECTION();
+      }
 
-			function EXPORT(ELEMENT,FILE_NAME){
-				CLEAN_SELECTION();
-				ELEMENT = document.querySelector(ELEMENT);
-				let RANGE = document.createRange();
-				RANGE.selectNode(ELEMENT);
-				window.getSelection().addRange(RANGE);
-				let DATA = window.getSelection().toString().trim();
-				let BLOB = new Blob([DATA], {type: "text/plain;charset=utf-8"});
-				saveAs(BLOB, FILE_NAME + ".TXT");
-				CLEAN_SELECTION();
-			}
+      $("#EXPORT_LIST_A").click(function () {
+        if ($("#BANG_A > tbody > tr").length > 0) {
+          let FILE_NAME =
+            "ETH--WALLET--OK--" +
+            Date.now().toString() +
+            "--" +
+            GET_RANDOM_INT(111111111, 999999999);
+          EXPORT("#BANG_A", FILE_NAME);
+        }
+      });
 
-			$("#EXPORT_LIST_A").click(function(){
-				if($("#BANG_A > tbody > tr").length > 0){
-					let FILE_NAME = "ETH--WALLET--OK--" + Date.now().toString() + "--" + GET_RANDOM_INT(111111111,999999999);
-					EXPORT("#BANG_A",FILE_NAME);
-				}
-			});
+      $("#EXPORT_LIST_B").click(function () {
+        if ($("#BANG_B > tbody > tr").length > 0) {
+          let FILE_NAME =
+            "ETH--WALLET--ZERO--" +
+            Date.now().toString() +
+            "--" +
+            GET_RANDOM_INT(111111111, 999999999);
+          EXPORT("#BANG_B", FILE_NAME);
+        }
+      });
 
-			$("#EXPORT_LIST_B").click(function(){
-				if($("#BANG_B > tbody > tr").length > 0){
-					let FILE_NAME = "ETH--WALLET--ZERO--" + Date.now().toString() + "--" + GET_RANDOM_INT(111111111,999999999);
-					EXPORT("#BANG_B",FILE_NAME);
-				}
-			});
+      $(".RESET").click(function () {
+        $("#SO_LUONG_CHECKED").text("0");
+        $("#SO_LUONG_ERROR").text("0");
+        $("#SO_LUONG_TONG").text("0");
+        $("#BANG_B > tbody").html("");
+      });
 
-			$(".RESET").click(function(){
-				$("#SO_LUONG_CHECKED").text("0");
-				$("#SO_LUONG_ERROR").text("0");
-				$("#SO_LUONG_TONG").text("0");
-				$("#BANG_B > tbody").html("");
-			});
+      $("#AUTO_CREATE_AND_CHECK").click(function () {
+        STOP = 0;
+        $("#CREATE_LIST_WALLET").trigger("click");
+        for (let i = 0; i < 20; i++) {
+          CHECK_BALANCE(1);
+        }
+        setInterval(function () {
+          if (STOP == 1) {
+            return;
+          }
+          let Row_Processing_Zero = $(
+            "#BANG_B > tbody > tr[processing='0']:first"
+          );
+          let Row_Processing_One = $(
+            "#BANG_B > tbody > tr[processing='1']:first"
+          );
+          if (
+            Row_Processing_Zero.length == 0 &&
+            Row_Processing_One.length == 0
+          ) {
+            if ($("#CHK_AUTO_EXPORT_LIST_A").is(":checked") == true) {
+              $("#EXPORT_LIST_A").trigger("click");
+            }
+            if ($("#CHK_AUTO_EXPORT_LIST_B").is(":checked") == true) {
+              $("#EXPORT_LIST_B").trigger("click");
+            }
+            $("#CREATE_LIST_WALLET").trigger("click");
+            for (let i = 0; i < 20; i++) {
+              CHECK_BALANCE(1);
+            }
+          }
+        }, 5000);
+      });
 
-			$("#AUTO_CREATE_AND_CHECK").click(function(){
-				STOP = 0;
-				$("#CREATE_LIST_WALLET").trigger("click");
-				for(let i = 0; i < 20; i++){CHECK_BALANCE(1);}
-				setInterval(function(){
-					if(STOP == 1){return;}
-					let Row_Processing_Zero = $("#BANG_B > tbody > tr[processing='0']:first");
-					let Row_Processing_One = $("#BANG_B > tbody > tr[processing='1']:first");
-					if(Row_Processing_Zero.length == 0 && Row_Processing_One.length == 0){
-						if($("#CHK_AUTO_EXPORT_LIST_A").is(":checked") == true){
-							$("#EXPORT_LIST_A").trigger("click");
-						}
-						if($("#CHK_AUTO_EXPORT_LIST_B").is(":checked") == true){
-							$("#EXPORT_LIST_B").trigger("click");
-						}
-						$("#CREATE_LIST_WALLET").trigger("click");
-						for(let i = 0; i < 20; i++){CHECK_BALANCE(1);}
-					}
-				},5000);
-			});
-
-			$(".STOP").click(function(){
-				STOP = 1;
-			});
-
-		</script>
-	</body>
+      $(".STOP").click(function () {
+        STOP = 1;
+      });
+    </script>
+  </body>
 </html>
-<!-- End -->

@@ -1,0 +1,71 @@
+<!---->
+<!-- HTML + JS -> OPEN TEXT FILE -->
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>JAVASCRIPT - EXAMPLE OPEN TEXT FILE</title>
+    <style>
+      body {
+        padding: 20px;
+        font-family: Tahoma;
+        font-size: 10pt;
+      }
+      .VMK_BUTTON {
+        padding: 10px;
+        cursor: pointer;
+        border-radius: 0.25rem;
+        background-color: #007bff;
+        color: white;
+      }
+      .VMK_BUTTON:hover {
+        background-color: #0069d9;
+      }
+    </style>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"
+    ></script>
+  </head>
+  <body>
+    <div style="font-weight: bold; margin-bottom: 20px; font-size: 12pt">
+      JAVASCRIPT - EXAMPLE OPEN TEXT FILE
+    </div>
+    <div class="PANEL_INPUT_FILE" style="margin-bottom: 20px">
+      <label for="VMK_FILE_OPEN" class="VMK_BUTTON">Open File</label>
+      <input
+        type="file"
+        id="VMK_FILE_OPEN"
+        name="VMK_FILE_OPEN"
+        accept=""
+        style="visibility: hidden"
+      />
+    </div>
+    <div class="PANEL_FILE_NAME">
+      FILE NAME:
+      <span id="VMK_FILE_OPEN_PATH" style="text-transform: uppercase"></span>
+    </div>
+    <div class="PANEL_CONTENT">CONTENT: <span id="CONTENT"></span></div>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $("#VMK_FILE_OPEN").change(function () {
+          File_Name = this.files[0].name;
+          $("#VMK_FILE_OPEN_PATH").text(File_Name);
+          console.log(File_Name);
+          const [File] = this.files;
+          const Reader = new FileReader();
+          Reader.addEventListener(
+            "load",
+            () => {
+              $("#CONTENT").text(Reader.result);
+            },
+            false
+          );
+          if (File) {
+            Reader.readAsText(File);
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,5 +1,5 @@
 //
-// JS -> KHÓA CHỨC NĂNG COPY, CUT, CHUỘT PHẢI
+// JQuery -> KHÓA CHỨC NĂNG COPY, CUT, CHUỘT PHẢI
 
 $(document).ready(function () {
   $(this).bind("copy", function (e) {

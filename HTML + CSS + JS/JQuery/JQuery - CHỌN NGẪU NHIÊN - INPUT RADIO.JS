@@ -1,5 +1,5 @@
 //
-// JS -> CHỌN NGẪU NHIÊN INPUT RADIO
+// JQuery -> CHỌN NGẪU NHIÊN INPUT RADIO
 
 function RANDOM_INT_FROM_INTERVAL(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);

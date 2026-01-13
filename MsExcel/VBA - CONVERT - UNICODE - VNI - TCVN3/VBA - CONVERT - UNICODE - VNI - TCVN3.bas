@@ -1,5 +1,5 @@
 
-LỆNH EXCEL VBA -> CONVERT - UNICODE - VNI - TCVN3 -> Version 1.0 -> NGÀY 2026-01-06 CHẠY THỬ KHÔNG HOẠT ĐỘNG
+''' LỆNH EXCEL VBA -> CONVERT - UNICODE - VNI - TCVN3 -> Version 1.0 -> NGÀY 2026-01-06 CHẠY THỬ KHÔNG HOẠT ĐỘNG
 
     Option Explicit
 

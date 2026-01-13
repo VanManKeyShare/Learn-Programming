@@ -1,5 +1,5 @@
 
-LỆNH EXCEL VBA -> CHECK WORKBOOK IS READY
+''' LỆNH EXCEL VBA -> CHECK WORKBOOK IS READY
 
     Public Function CHECK_WORKBOOK_IS_READY(Optional Show_Error As Boolean = True) As Boolean
         On Error Resume Next

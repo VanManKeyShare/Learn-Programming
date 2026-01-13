@@ -1,5 +1,5 @@
 
-LỆNH EXCEL VBA -> COPY TO CLIPBOARD
+''' LỆNH EXCEL VBA -> COPY TO CLIPBOARD
 
     Public Function Copy_To_ClipBoard(sClipDATA As String) As Boolean
         Dim MSForms_DATA_OBJ As Object

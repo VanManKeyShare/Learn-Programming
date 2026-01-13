@@ -1,5 +1,5 @@
 
-LỆNH EXCEL VBA -> CHECK FOLDER IS EXISTS
+''' LỆNH EXCEL VBA -> CHECK FOLDER IS EXISTS
 
     Function CHECK_FOLDER_IS_EXISTS(sFolderName As String) As Boolean
         Dim oFSO As Object

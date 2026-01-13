@@ -1,5 +1,5 @@
 
-LỆNH EXCEL VBA -> XÓA DÒNG THEO ĐIỀU KIỆN
+''' LỆNH EXCEL VBA -> XÓA DÒNG THEO ĐIỀU KIỆN
 
 	Function CollecToArray(c As Collection) As Variant()
 		Dim a() As Variant: ReDim a(0 To c.Count - 1)

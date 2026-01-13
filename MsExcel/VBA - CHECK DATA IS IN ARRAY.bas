@@ -1,5 +1,5 @@
 
-LỆNH EXCEL VBA -> CHECK DATA IS IN ARRAY
+''' LỆNH EXCEL VBA -> CHECK DATA IS IN ARRAY
 
     Private Function IsInArray(DATA As Variant, Arr As Variant) As Boolean
         Dim Elemen As Variant

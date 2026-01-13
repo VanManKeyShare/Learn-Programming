@@ -1,5 +1,5 @@
 
-LỆNH EXCEL VBA -> CHECK FILE IS EXISTS
+''' LỆNH EXCEL VBA -> CHECK FILE IS EXISTS
 
     Function CHECK_FILE_IS_EXISTS(sFileName As String) As Boolean
         Dim oFSO As Object

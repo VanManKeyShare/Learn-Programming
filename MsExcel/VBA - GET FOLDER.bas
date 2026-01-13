@@ -1,5 +1,5 @@
 
-LỆNH EXCEL VBA -> GET FOLDER
+''' LỆNH EXCEL VBA -> GET FOLDER
 
     Sub SHOW_GET_FOLDER()
         MsgBox GET_FOLDER("C:\"), , "Message"

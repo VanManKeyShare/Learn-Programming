@@ -1,5 +1,5 @@
 
-LỆNH EXCEL VBA -> TẠO HASH CRC16
+''' LỆNH EXCEL VBA -> TẠO HASH CRC16
 
     Function VMK_HASH_CRC16(DATA As String) As String
 

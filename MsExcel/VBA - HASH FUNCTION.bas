@@ -1,5 +1,5 @@
 
-LỆNH EXCEL VBA -> HASH FUNCTION -> Version 1.1
+''' LỆNH EXCEL VBA -> HASH FUNCTION -> Version 1.1
 
     Option Explicit
 

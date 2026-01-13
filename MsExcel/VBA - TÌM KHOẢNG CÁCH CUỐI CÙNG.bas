@@ -1,5 +1,5 @@
 
-LỆNH EXCEL VBA -> TÌM KHOẢNG CÁCH CUỐI CÙNG
+''' LỆNH EXCEL VBA -> TÌM KHOẢNG CÁCH CUỐI CÙNG
 
     Public Function SEARCH_LAST_SPACE(DLieu As String) As Integer
         Dim i As Integer

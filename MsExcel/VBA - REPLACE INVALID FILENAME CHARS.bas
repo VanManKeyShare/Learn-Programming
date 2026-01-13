@@ -1,5 +1,5 @@
 
-LỆNH EXCEL VBA -> REPLACE INVALID FILENAME CHARS
+''' LỆNH EXCEL VBA -> REPLACE INVALID FILENAME CHARS
 
     Private Function Replace_Invalid_FileName_Chars(ByVal sFileName As String) As String
 

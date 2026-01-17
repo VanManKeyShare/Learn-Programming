@@ -1,6 +1,6 @@
 # 📦 CREATE BARCODE 39
 
-<img src= "./DEMO.PNG" alt="DEMO - CREATE BARCODE 39" style="border: 1px solid grey;">
+<img src= "./DEMO.PNG" alt="CREATE BARCODE 39" style="border: 1px solid grey;">
 
 ## HOW TO INSTALL FONT - LIBRE BARCODE 39 TEXT
 

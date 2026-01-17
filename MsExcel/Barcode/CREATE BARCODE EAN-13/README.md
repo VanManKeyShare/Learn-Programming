@@ -1,6 +1,6 @@
 # 📦 CREATE BARCODE EAN-13
 
-<img src= "./DEMO.PNG" alt="DEMO - CREATE BARCODE EAN-13" style="border: 1px solid grey;">
+<img src= "./DEMO.PNG" alt="CREATE BARCODE EAN-13" style="border: 1px solid grey;">
 
 ## HOW TO CREATE - BARCODE EAN-13
 

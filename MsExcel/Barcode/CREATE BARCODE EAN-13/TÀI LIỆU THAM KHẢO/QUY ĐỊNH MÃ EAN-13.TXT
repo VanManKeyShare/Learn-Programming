@@ -1,0 +1,22 @@
+
+	QUY ĐỊNH - MÃ SỐ MÃ VẠCH EAN-13
+
+		MÃ SỐ EAN-13 BAO GỒM 13 CHỮ SỐ ĐƯỢC CHIA THÀNH 04 NHÓM, Ý NGHĨA CỦA TỪNG NHÓM THEO THỨ TỰ TỪ TRÁI QUA PHẢI NHƯ SAU:
+
+		NHÓM 1: BAO GỒM 03 CHỮ SỐ ĐẦU TIÊN: ĐÂY LÀ VỊ TRÍ GHI NHẬN MÃ QUỐC GIA HOẶC VÙNG LÃNH THỔ. Ở VIỆT NAM MÃ QUỐC GIA LÀ 893.
+		NHÓM 2: BAO GỒM 04 CHỮ SỐ TIẾP THEO LÀ MÃ SỐ DOANH NGHIỆP, MÃ SỐ DOANH NGHIỆP SẼ DO QUỐC GIA CẤP CHO DOANH NGHIỆP LÀ THÀNH VIÊN NƯỚC MÌNH, CỤ THỂ Ở VIỆT NAM SẼ LÀ EAN-VN CẤP, MÃ NÀY SẼ ĐƯỢC CÔNG NHẬN VÀ LƯU TRỮ TRONG NGÂN HÀNG DỮ LIỆU CỦA EAN THẾ GIỚI.
+		NHÓM 3: BAO GỒM 05 CHỮ SỐ TIẾP THEO LÀ MÃ SỐ CỦA HÀNG HÓA, DO ĐƠN VỊ SẢN XUẤT QUY ĐỊNH CHO HÀNG HÓA CỦA MÌNH, VÀ PHẢI ĐẢM BẢO MỖI MẶT HÀNG CHỈ CÓ MỘT MÃ SỐ KHÔNG ĐƯỢC TRÙNG LẶP.
+		NHÓM 4: GỒM 01 CHỮ SỐ CUỐI CÙNG LÀ SỐ KIỂM TRA, ĐƯỢC TÍNH DỰA TRÊN NHỮNG CON SỐ Ở TRƯỚC ĐÓ VÀ ĐỂ KIỂM TRA NHỮNG SỐ NÀY CÓ ĐÚNG HAY KHÔNG.
+		VÍ DỤ CÓ MỘT DÃY MÃ SỐ: 8 9 3 4 4 8 1 2 2 3 5 9 2
+
+		VẬY TRONG ĐÓ:
+			[8 9 3] – LÀ MÃ QUỐC GIA CỦA VIỆT NAM;
+			[4 4 8 1] – LÀ MÃ DOANH NGHIỆP Ở VIỆT NAM;
+			[2 2 3 5 9] – LÀ MÃ SỐ HÀNG HÓA CỦA DOANH NGHIỆP;
+			[2] – LÀ SỐ KIỂM TRA.
+
+		TRÊN ĐÂY LÀ PHẦN MÃ SỐ EAN 13 CHỮ SỐ ĐƯỢC THỰC HIỆN Ở VIỆT NAM, LƯỢNG CHỮ SỐ TRONG TỪNG NHÓM CÓ THỂ THAY ĐỔI TÙY TỪNG QUỐC GIA KHÁC NHAU:
+			NHÓM 1 CÓ THỂ CHỨA TỪ 2-3 CHỮ SỐ;
+			NHÓM 2 CÓ THỂ CÓ 4, 5 HOẶC 6 CHỮ SỐ;
+			NHÓM 3 CŨNG TƯƠNG TỰ, CÓ THỂ CÓ TỪ 4.5 HOẶC 6 CHỮ SỐ TÙY VÀO SỐ LƯỢNG CỦA NHÓM 2 TRƯỚC ĐÓ ĐÃ CÓ BAO NHIÊU CHỮ SỐ;
+			01 CHỮ SỐ CUỐI CÙNG Ở NHÓM 4 SẼ LUÔN LÀ SỐ KIỂM TRA.

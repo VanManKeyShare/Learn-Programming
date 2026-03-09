@@ -3,6 +3,32 @@
 
     Option Explicit
 
+	Function VMK_BASE64_ENCODE_V2(TEXT$)
+		Dim B
+		With CreateObject("ADODB.Stream")
+			.Open: .Type = 2: .Charset = "utf-8"
+			.WriteText TEXT: .Position = 0: .Type = 1: B = .Read
+			With CreateObject("Microsoft.XMLDOM").createElement("b64")
+				.DataType = "bin.base64": .nodeTypedValue = B
+				VMK_BASE64_ENCODE_V2 = Replace(Mid(.TEXT, 5), vbLf, "")
+			End With
+			.Close
+		End With
+	End Function
+
+	Function VMK_BASE64_DECODE_V2(B64$)
+		Dim B
+		With CreateObject("Microsoft.XMLDOM").createElement("b64")
+			.DataType = "bin.base64": .TEXT = B64
+			B = .nodeTypedValue
+			With CreateObject("ADODB.Stream")
+				.Open: .Type = 1: .Write B: .Position = 0: .Type = 2: .Charset = "utf-8"
+				VMK_BASE64_DECODE_V2 = .ReadText
+				.Close
+			End With
+		End With
+	End Function
+
     Public Function VMK_BASE64_ENCODE(ByVal sTEXT, Optional ByVal UTF_16_LE As Boolean = False) As String
         ''' USE AN AUX. XML DOCUMENT WITH A BASE64-ENCODED ELEMENT.
         ''' ASSIGNING THE BYTE STREAM (ARRAY) RETURNED BY STRTOBYTES() TO .NODETYPEDVALUE

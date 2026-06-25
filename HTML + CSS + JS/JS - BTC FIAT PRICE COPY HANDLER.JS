@@ -5,6 +5,7 @@
 function copyValue(Eleme) {
 	navigator.clipboard.writeText($(Eleme).text()).then(() => {
 		console.log($(Eleme).text());
+		alert("Copy Done");
 	}).catch(err => {
 		console.error('Error: ', err);
 	});
